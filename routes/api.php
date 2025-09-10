@@ -2,11 +2,15 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
 
-Route::get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-})->middleware('auth:sanctum'); // <-- Fíjate en la sintaxis correcta aquí
+});
 
 Route::get('/hola', function(Request $request) {
-    return 'Hola mundo';
+    return 'Hola Mundo';
 });
+
+Route::get('/tasks', [TaskController::class, 'showAll']);
+Route::post('/tasks', [TaskController::class, 'store']);
